@@ -71,13 +71,17 @@ const client = tumblr.createClient(secrets);
             });
         }
 
-        await client.createPost(
-            BLOG_NAME,
-            {
-                tags: generateTags(),
-                content,
-            }
-        );
+        try {
+            await client.createPost(
+                BLOG_NAME,
+                {
+                    tags: generateTags(),
+                    content,
+                }
+            );
+        } catch (error) {
+            console.error(error);
+        }
 
         // sleep for a random amount between 1 and 12 hours
         const duration = 3600000 * (1 + 11 * Math.random());
